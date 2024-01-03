@@ -1,4 +1,4 @@
-from werkzeug.security import generate_password_hash, check_password_hash
+import bcrypt
 
 class User:
     def __init__(self, db, username, password,stocks=[]):
@@ -53,8 +53,8 @@ class User:
 
     @staticmethod
     def hash_password(password):
-        return generate_password_hash(password, method='sha256')
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     @staticmethod
     def check_password(hashed_password, password):
-        return check_password_hash(hashed_password, password)
+        return bcrypt.checkpw(password.encode('utf-8'), hashed_password)

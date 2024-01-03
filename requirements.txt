@@ -32,3 +32,4 @@ Werkzeug==3.0.1
 wheel==0.41.2
 yfinance==0.2.33
 Gunicorn
+bcrypt

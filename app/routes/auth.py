@@ -26,6 +26,11 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        repeat_password = request.form.get('repeat_password')
+
+        if password != repeat_password:
+            flash('Passwords must match', 'error')
+            return render_template('register.html')
 
         existing_user = User.find_by_username(app.db, username)
 

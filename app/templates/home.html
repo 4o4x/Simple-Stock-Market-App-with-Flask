@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* Karanlık arka plan rengi */
+            color: #fff; /* Beyaz metin rengi */
+        }
+        .container {
+            margin-top: 50px;
+            background-color: #121212; /* Container arka plan rengi */
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        th {
+            background-color: #062241; /* Tablo başlık arka plan rengi */
+            color: #fff; /* Tablo başlık metin rengi */
+        }
+        .btn-danger {
+            margin-top: 20px; /* Çıkış butonu üst boşluk */
+        }
+        .positive {
+            color: #28a745; /* Pozitif değerler için yeşil */
+        }
+        .negative {
+            color: #dc3545; /* Negatif değerler için kırmızı */
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        <a href="/stock_list" class="btn btn-primary">Hisse Ekle</a>
+
+        {% if stocks %}
+            <h2>Stock Information</h2>
+            <table class="table table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hisse</th>
+                        <th>Fiyat</th>
+                        <th>Dünkü Fiyat</th>
+                        <th>Oran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock, details in stocks.items() %}
+                    <tr>
+                        <td>{{ stock }}</td>
+                        <td>{{ details["price"] }}</td>
+                        <td>{{ details["previousClose"] }}</td>
+                        <td class="{{ 'positive' if details['rate'] > 0 else 'negative' }}">{{ details["rate"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Lütfen hisse ekleyin.</p>
+        {% endif %}
+
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+</body>
+</html>
